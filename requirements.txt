@@ -12,3 +12,4 @@ requests>=2,<3
 django-cors-headers
 django-filter
 djangorestframework
+dj-database-url
