@@ -59,7 +59,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'marketplace.urls'
-CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = True
+#CORS_ALLOWED_ORIGINS = [
+#    "http://localhost:3000",
+#    "https://tusitio.com",
+#]
 
 TEMPLATES = [
     {
@@ -129,6 +134,8 @@ STATIC_URL = '/static/'
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
