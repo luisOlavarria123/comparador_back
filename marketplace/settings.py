@@ -61,10 +61,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'marketplace.urls'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",  # tu frontend local
-    "https://comparador-front.onrender.com",   # tu dominio de producción
-]
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', default='').split(',')
+CORS_ALLOW_ALL_ORIGINS = os.getenv('CORS_ALL', 'False') == 'True' 
 
 TEMPLATES = [
     {
@@ -104,9 +102,16 @@ if BD_SERVER == 'PSQL':
             },
         }
     }
-else:
+elif BD_SERVER == 'REMOTE':
     DATABASES = {
         'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
 
 
