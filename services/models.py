@@ -9,7 +9,7 @@ class Region(models.Model):
 class Comuna(models.Model):
     descripcion = models.CharField(max_length=100)
     fechaCreacion = models.DateTimeField(auto_now_add=True)
-    region = models.ForeignKey(Region, on_delete=models.PROTECT)
+    region = models.ForeignKey(Region, related_name='comunas', on_delete=models.CASCADE)
     usuario = models.ForeignKey(User, on_delete=models.PROTECT)           
 
 
@@ -46,15 +46,28 @@ class Servicio(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.PROTECT)    
     prestador = models.ForeignKey(Prestador, on_delete=models.PROTECT)
 
+class Prestacion(models.Model):
+    descripcion = models.CharField(max_length=100)
+    icono = models.CharField(max_length=100)
+    fechaCreacion = models.DateTimeField(auto_now_add=True)
+    estado = models.IntegerField(default=1)    
+    
+class ServicioPrestacion(models.Model):
+    servicio = models.ForeignKey('Servicio', on_delete=models.CASCADE) 
+    prestacion = models.ForeignKey('Prestacion', on_delete=models.CASCADE) 
+    tipo = models.CharField(max_length=2) # PR = principal / AD = adicional
+    fechaCreacion = models.DateTimeField(auto_now_add=True)
+    estado = models.IntegerField(default=1)
+
 
 
 # Modelo de Reseña
-class Review(models.Model):
-    service = models.ForeignKey('Servicio', on_delete=models.CASCADE)  # Relación con el servicio
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Usuario que dejó la reseña
+class Resenia(models.Model):
+    servicio = models.ForeignKey('Servicio', on_delete=models.CASCADE)  # Relación con el servicio
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)  # Usuario que dejó la reseña
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])  # Rating de 1 a 5
-    comment = models.TextField()
-    review_date = models.DateTimeField(auto_now_add=True)
+    comentario = models.TextField()
+    fechaCreacion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Reseña por {self.user.username} - {self.rating} estrellas"
+        return f"Reseña por {self.usuario.username} - {self.rating} estrellas"
