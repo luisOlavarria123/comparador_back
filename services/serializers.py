@@ -8,11 +8,11 @@ class ServicioSerializer(serializers.ModelSerializer):
     comuna_nombre = serializers.CharField(source='prestador.comuna.descripcion', read_only=True)
     direccionCalle = serializers.CharField(source='prestador.direccionCalle', read_only=True)
     direccionNumero = serializers.CharField(source='prestador.direccionNumero', read_only=True)
-    
+    prestador_logo = serializers.CharField(source='prestador.logo', read_only=True)
 
     class Meta:
         model = Servicio
-        fields = ['id', 'descripcion', 'valor', 'prestador_nombre','region_nombre','comuna_nombre','direccionCalle','direccionNumero']  
+        fields = ['id', 'descripcion', 'valor', 'prestador_nombre','region_nombre','comuna_nombre','direccionCalle','direccionNumero','prestador_logo']  
 
 
 class ComunaSerializer(serializers.ModelSerializer):

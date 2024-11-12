@@ -29,7 +29,7 @@ class Prestador(models.Model):
     direccionNumero = models.IntegerField(default=0)
     region = models.ForeignKey(Region, on_delete=models.PROTECT)
     comuna = models.ForeignKey(Comuna, on_delete=models.PROTECT)
-
+    logo = models.ImageField(upload_to='prestadores/', null=True, blank=True) 
 
 class ServicioTipo(models.Model):
     descripcion = models.CharField(max_length=100)
