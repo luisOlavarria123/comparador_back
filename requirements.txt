@@ -13,3 +13,4 @@ django-cors-headers
 django-filter
 djangorestframework
 dj-database-url
+Pillow
