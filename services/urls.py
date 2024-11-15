@@ -1,6 +1,8 @@
 from rest_framework.routers import DefaultRouter
 from .views import ServicioViewSet,RegionViewSet,ServicioPrestacionViewSet,ReseniaViewSet,login,register
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 
 router = DefaultRouter()
 router.register(r'servicios', ServicioViewSet)
@@ -15,3 +17,7 @@ urlpatterns = [
     path('login/', login),
 
 ]
+
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
